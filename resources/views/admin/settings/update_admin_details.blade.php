@@ -50,33 +50,54 @@
                             </button>
                         </div>
                         @endif
-                        <h4 class="card-title">Update Admin Password</h4>
-                        <form action="{{ url('admin/update-admin-password') }}" method="POST" class="forms-sample">
+                        @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        <h4 class="card-title">Update Admin Details</h4>
+                        <form action="{{ url('admin/update-admin-details') }}" method="POST" class="forms-sample"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
                                 <label>Admin Username/Email</label>
-                                <input class="form-control" value="{{ $adminDetails['email'] }}" readonly="">
+                                <input class="form-control" value="{{ Auth::guard('admin')->user()->email }}"
+                                    readonly="">
                             </div>
                             <div class="form-group">
                                 <label>Admin Type</label>
-                                <input class="form-control" value="{{ $adminDetails['type'] }}" readonly="">
+                                <input class="form-control" value="{{ Auth::guard('admin')->user()->type }}"
+                                    readonly="">
                             </div>
                             <div class="form-group">
-                                <label for="current_password">Current Password</label>
-                                <input type="password" class="form-control" id="current_password"
-                                    name="current_password" placeholder="Enter Current Password" required="">
-                                <span id="check_password"></span>
+                                <label for="admin_name">Name</label>
+                                <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->name }}"
+                                    id="admin_name" name="admin_name" placeholder="Enter Your Name" required="">
+                                <span id="admin_name"></span>
                             </div>
                             <div class="form-group">
-                                <label for="new_password">New Password</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password"
-                                    placeholder="Enter New Password" required="">
+                                <label for="admin_mobile">Mobile</label>
+                                <input type="text" class="form-control"
+                                    value="{{ Auth::guard('admin')->user()->mobile }}" id="admin_mobile"
+                                    name="admin_mobile" placeholder="Enter 11 Digit Mobile Number" maxlength="11"
+                                    minlength="11" required="">
                             </div>
                             <div class="form-group">
-                                <label for="confirm_password">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirm_password"
-                                    name="confirm_password" placeholder="Confirm Password" required="">
+                                <label for="admin_image">Admin Photo</label>
+                                <input type="file" class="form-control" id="admin_image" name="admin_image">
+                                @if(!empty(Auth::guard('admin')->user()->image))
+                                <a target="_blank"
+                                    href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}"
+                                    class="">View Image</a>
+                                <input type="hidden" name="current_admin_image"
+                                    value="{{ Auth::guard('admin')->user()->image }}">
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>
