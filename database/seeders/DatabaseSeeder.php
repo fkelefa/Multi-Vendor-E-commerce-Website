@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             VendorsTableSeeder::class,
             VendorsBusinessDetailsTableSeeder::class,
             VendorsBankDetailsTableSeeder::class,
-            SectionsTableSeeder::class
+            SectionsTableSeeder::class,
+            CategoryTableSeeder::class
         ]);
     }
 }

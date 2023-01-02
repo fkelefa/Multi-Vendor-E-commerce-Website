@@ -7,9 +7,10 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Sections</h4>
+                        <h4 class="card-title">Categories</h4>
                         <a style="max-width: 150px; float: right; display: inline-block;"
-                            href="{{ url('admin/add-edit-section') }}" class="btn btn-block btn-primary">Add Section</a>
+                            href="{{ url('admin/add-edit-categories') }}" class="btn btn-block btn-primary">Add
+                            Section</a>
                         @if (Session::has('error_message'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error:</strong> {{ Session::get('error_message') }}
@@ -40,14 +41,23 @@
                             Add class <code>.table-striped</code>
                         </p> --}}
                         <div class="table-responsive">
-                            <table id="sections" class="table table-striped table-hover">
+                            <table id="categories" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>
                                             ID
                                         </th>
                                         <th>
-                                            Section name
+                                            Category
+                                        </th>
+                                        <th>
+                                            Parent Category
+                                        </th>
+                                        <th>
+                                            Section Name
+                                        </th>
+                                        <th>
+                                            URL
                                         </th>
                                         <th>
                                             Status
@@ -58,32 +68,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sections as $section )
+                                    @foreach ($categories as $category )
+                                    @if(isset($category['parentcategory']['category_name'])
+                                    &&!empty($category['parentcategory']['category_name']))
+                                    @php $parent_category = $category['parentcategory']['category_name']; @endphp
+                                    @else
+                                    @php $parent_category = "Root"; @endphp
+                                    @endif
                                     <tr>
                                         <td class="py-1">
-                                            {{ $section['id'] }}
+                                            {{ $category['id'] }}
+                                        </td>
+                                        <td class="py-1">
+                                            {{ $category['category_name'] }}
                                         </td>
                                         <td>
-                                            {{ $section['name'] }}
+                                            {{ $parent_category }}
                                         </td>
                                         <td>
-                                            @if ($section['status'] ==1)
-                                            <a href="javascript:void(0)" class="updateSectionStatus"
-                                                id="section-{{ $section['id'] }}" section_id="{{ $section['id'] }}"><i
-                                                    style="font-size:30px;" class="mdi mdi-bookmark-check"
-                                                    status="Active"></i></a>
+                                            {{ $category['section']['name'] }}
+                                        </td>
+                                        <td>
+                                            {{ $category['url'] }}
+                                        </td>
+                                        <td>
+                                            @if ($category['status'] ==1)
+                                            <a href="javascript:void(0)" class="updateCategoryStatus"
+                                                id="category-{{ $category['id'] }}"
+                                                category_id="{{ $category['id'] }}"><i style="font-size:30px;"
+                                                    class="mdi mdi-bookmark-check" status="Active"></i></a>
                                             @else
-                                            <a href="javascript:void(0)" class="updateSectionStatus"
-                                                id="section-{{ $section['id'] }}" section_id="{{ $section['id'] }}"><i
-                                                    style="font-size:30px;" class="mdi mdi-bookmark-outline"
-                                                    status="Inactive"></i></a>
+                                            <a href="javascript:void(0)" class="updateCategoryStatus"
+                                                id="category-{{ $category['id'] }}"
+                                                category_id="{{ $category['id'] }}"><i style="font-size:30px;"
+                                                    class="mdi mdi-bookmark-outline" status="Inactive"></i></a>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('admin/add-edit-section/'.$section['id']) }}" class=""><i
+                                            <a href="{{ url('admin/add-edit-category/'.$category['id']) }}" class=""><i
                                                     style="font-size:30px;" class="mdi mdi-pencil-box"></i></a>
-                                            <a class="confirmDelete" href="javascript:void(0)" module="section"
-                                                moduleid="{{  $section['id'] }}"><i style="font-size:30px;"
+                                            <a class="confirmDelete" href="javascript:void(0)" module="category"
+                                                moduleid="{{  $category['id'] }}"><i style="font-size:30px;"
                                                     class="mdi mdi-delete"></i></a>
                                         </td>
 
