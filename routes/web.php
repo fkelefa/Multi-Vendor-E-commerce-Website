@@ -54,5 +54,13 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
         //admin logout
         Route::get('logout', 'AdminController@logout');
+
+        //sections
+
+        Route::get('sections', 'SectionController@sections');
+        // update Section status
+        Route::post('update-section-status', 'SectionController@updateSectionStatus');
+        Route::get('delete-section/{id}', 'SectionController@deleteSection');
+        Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
     });
 });

@@ -6,7 +6,7 @@
             <div class="col-md-12 grid-margin">
                 <div class="row">
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                        <h3 class="font-weight-bold">Settings</h3>
+                        <h3 class="font-weight-bold">Sections</h3>
                         {{-- <h6 class="font-weight-normal mb-0">Update Admin Password</h6> --}}
                     </div>
                     <div class="col-12 col-xl-4">
@@ -34,7 +34,7 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Update Admin Details</h4>
+                        <h4 class="card-title">{{ $title }}</h4>
                         @if (Session::has('error_message'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <strong>Error:</strong> {{ Session::get('error_message') }}
@@ -61,44 +61,19 @@
                             </button>
                         </div>
                         @endif
-                        <form action="{{ url('admin/update-admin-details') }}" method="POST" class="forms-sample"
-                            enctype="multipart/form-data">
+                        <form @if(empty($section['id'])) action="{{ url('admin/add-edit-section') }}" @else
+                            action="{{ url('admin/add-edit-section/'.$section['id']) }}" @endif method="POST"
+                            class="forms-sample" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
-                                <label>Admin Username/Email</label>
-                                <input class="form-control" value="{{ Auth::guard('admin')->user()->email }}"
-                                    readonly="">
+                                <label for="section_name">Section Name</label>
+                                <input type="text" class="form-control" @if(!empty($section['name']))
+                                    value="{{ $section['name'] }}" @else value="{{ old('section_name') }}" @endif
+                                    id="section_name" name="section_name" placeholder="Enter Section Name" required="">
+                                <span id="section_name"></span>
                             </div>
-                            <div class="form-group">
-                                <label>Admin Type</label>
-                                <input class="form-control" value="{{ Auth::guard('admin')->user()->type }}"
-                                    readonly="">
-                            </div>
-                            <div class="form-group">
-                                <label for="admin_name">Name</label>
-                                <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->name }}"
-                                    id="admin_name" name="admin_name" placeholder="Enter Your Name" required="">
-                                <span id="admin_name"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="admin_mobile">Mobile</label>
-                                <input type="text" class="form-control"
-                                    value="{{ Auth::guard('admin')->user()->mobile }}" id="admin_mobile"
-                                    name="admin_mobile" placeholder="Enter 11 Digit Mobile Number" maxlength="11"
-                                    minlength="11" required="">
-                            </div>
-                            <div class="form-group">
-                                <label for="admin_image">Admin Photo</label>
-                                <input type="file" class="form-control" id="admin_image" name="admin_image">
-                                @if(!empty(Auth::guard('admin')->user()->image))
-                                <a target="_blank"
-                                    href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}"
-                                    class="">View Image</a>
-                                <input type="hidden" name="current_admin_image"
-                                    value="{{ Auth::guard('admin')->user()->image }}">
-                                @endif
-                            </div>
+
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                         </form>

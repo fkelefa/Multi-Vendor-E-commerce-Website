@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="{{ url('admin/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ url('images/favicon.png') }}" />
+    <!-- dataTable:css -->
+    <link rel="stylesheet" href="{{ url('admin/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url('admin/css/dataTables.bootstrap4.min.css') }}">
+    <!-- End dataTable -->
+
+
+
 </head>
 
 <body>
@@ -65,6 +72,8 @@
     <!-- Custom Admin Js -->
     <script src="{{ url('admin/js/custom.js') }}"></script>
     <!-- End Custom Admin Js -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>
