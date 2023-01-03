@@ -113,6 +113,8 @@ class AdminController extends Controller
 
     public function updateVendorDetails(Request $request, $slug)
     {
+        Session::put('page', 'update_vendor_details');
+
         if ($slug == "personal") {
             Session::put('page', 'update_vendor_personal_details');
             if ($request->isMethod('post')) {
@@ -312,6 +314,8 @@ class AdminController extends Controller
 
     public function admins($type = null)
     {
+        Session::put('page', 'admins');
+
         $admins = Admin::query();
         if (!empty($type)) {
             $admins = $admins->where('type', $type);

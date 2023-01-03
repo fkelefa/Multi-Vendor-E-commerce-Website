@@ -9,16 +9,8 @@
                     <div class="card-body">
                         <h4 class="card-title">Categories</h4>
                         <a style="max-width: 150px; float: right; display: inline-block;"
-                            href="{{ url('admin/add-edit-categories') }}" class="btn btn-block btn-primary">Add
-                            Section</a>
-                        @if (Session::has('error_message'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Error:</strong> {{ Session::get('error_message') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
+                            href="{{ url('admin/add-edit-category') }}" class="btn btn-block btn-primary">Add
+                            Category</a>
                         @if (Session::has('success_message'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>Success:</strong> {{ Session::get('success_message') }}
@@ -27,20 +19,10 @@
                             </button>
                         </div>
                         @endif
-                        @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        @endif
                         {{-- <p class="card-description">
                             Add class <code>.table-striped</code>
                         </p> --}}
-                        <div class="table-responsive">
+                        <div class="table-responsive pt-3">
                             <table id="categories" class="table table-striped table-hover">
                                 <thead>
                                     <tr>

@@ -66,5 +66,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Categories
         Route::get('categories', 'CategoryController@categories');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
+        Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategory');
+
+        Route::get('append-categories-level', 'CategoryController@appendCategoryLevel');
+        Route::get('delete-category/{id}', 'CategoryController@deleteCategory');
     });
 });

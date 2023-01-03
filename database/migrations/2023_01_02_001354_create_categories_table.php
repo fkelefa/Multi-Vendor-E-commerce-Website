@@ -19,12 +19,12 @@ return new class extends Migration
             $table->integer('section_id');
             $table->string('category_name');
             $table->string('category_image');
-            $table->float('category_discount');
-            $table->text('description');
+            $table->float('category_discount')->default('0.00');
+            $table->text('description')->nullable();
             $table->string('url');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->string('meta_keywords');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });
