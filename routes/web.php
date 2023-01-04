@@ -52,13 +52,11 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('update-admin-status', 'AdminController@updateAdminStatus');
 
 
-        //admin logout
+        // Admin logout
         Route::get('logout', 'AdminController@logout');
 
-        //sections
-
+        // Sections
         Route::get('sections', 'SectionController@sections');
-        // update Section status
         Route::post('update-section-status', 'SectionController@updateSectionStatus');
         Route::get('delete-section/{id}', 'SectionController@deleteSection');
         Route::match(['get', 'post'], 'add-edit-section/{id?}', 'SectionController@addEditSection');
@@ -67,8 +65,13 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::get('categories', 'CategoryController@categories');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
         Route::match(['get', 'post'], 'add-edit-category/{id?}', 'CategoryController@addEditCategory');
-
         Route::get('append-categories-level', 'CategoryController@appendCategoryLevel');
         Route::get('delete-category/{id}', 'CategoryController@deleteCategory');
+
+        // Brands
+        Route::get('brands', 'BrandController@brands');
+        Route::post('update-brand-status', 'BrandController@updateBrandStatus');
+        Route::get('delete-brand/{id}', 'BrandController@deleteBrand');
+        Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
     });
 });
