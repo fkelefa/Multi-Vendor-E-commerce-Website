@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             //VendorsBankDetailsTableSeeder::class,
             //SectionsTableSeeder::class,
             //CategoryTableSeeder::class,
-            BrandsTableSeeder::class
+            // BrandsTableSeeder::class,
+            ProductsTableSeeder::class
         ]);
     }
 }
